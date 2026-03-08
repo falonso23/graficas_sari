@@ -326,6 +326,47 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
+    .style-panel {
+      width: 200px;
+      flex-shrink: 0;
+      background: #fff;
+      border-radius: 12px;
+      padding: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      align-self: flex-start;
+    }
+
+    .style-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .style-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+    }
+
+    .style-item label {
+      font-weight: 600;
+      font-size: 0.78rem;
+      color: #555;
+    }
+
+    .style-color-pick {
+      width: 36px;
+      height: 28px;
+      border: 2px solid #d4c6ef;
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      flex-shrink: 0;
+    }
+
     .indices-config-list {
       display: flex;
       flex-wrap: wrap;
@@ -503,6 +544,10 @@
         padding: 0.6rem;
       }
 
+      .style-panel {
+        width: 100% !important;
+      }
+
       .zone-card-fields input[type="number"] {
         width: 48px;
         font-size: 0.75rem;
@@ -570,12 +615,34 @@
         </div>
       </div>
 
-      <div class="zones-panel">
-        <div class="zones-header">
-          <span class="zones-title">Zonas</span>
-          <button class="btn-add-zone" id="btnAddZone">+</button>
+      <div style="display:flex;flex-direction:column;gap:1rem;flex-shrink:0;">
+        <div class="zones-panel" style="width:200px;">
+          <div class="zones-header">
+            <span class="zones-title">Zonas</span>
+            <button class="btn-add-zone" id="btnAddZone">+</button>
+          </div>
+          <div id="zonesList" class="zones-list"></div>
         </div>
-        <div id="zonesList" class="zones-list"></div>
+
+        <div class="style-panel">
+          <div class="zones-header">
+            <span class="zones-title">Estilo</span>
+          </div>
+          <div class="style-row">
+            <div class="style-item">
+              <label>Línea</label>
+              <input type="color" class="style-color-pick" id="colorLine" value="#9B7FC4">
+            </div>
+            <div class="style-item">
+              <label>Puntos (relleno)</label>
+              <input type="color" class="style-color-pick" id="colorPointFill" value="#C3B1E1">
+            </div>
+            <div class="style-item">
+              <label>Puntos (borde)</label>
+              <input type="color" class="style-color-pick" id="colorPointBorder" value="#9B7FC4">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -986,6 +1053,30 @@
       const url = chart.toBase64Image('image/png');
       downloadImage(url, 'perfil-wisc-v.png');
       exportFeedback(this, 'Exportar PNG');
+    });
+
+    // --- Chart style color pickers ---
+    document.getElementById('colorLine').addEventListener('input', function() {
+      chart.data.datasets[0].borderColor = this.value;
+      chart.update('none');
+    });
+
+    document.getElementById('colorPointFill').addEventListener('input', function() {
+      const color = this.value;
+      chart.data.datasets[0].pointBackgroundColor = color;
+      chart.getDatasetMeta(0).data.forEach(function(point) {
+        point.options.backgroundColor = color;
+      });
+      chart.update('none');
+    });
+
+    document.getElementById('colorPointBorder').addEventListener('input', function() {
+      const color = this.value;
+      chart.data.datasets[0].pointBorderColor = color;
+      chart.getDatasetMeta(0).data.forEach(function(point) {
+        point.options.borderColor = color;
+      });
+      chart.update('none');
     });
 
     // --- JPG export (white background) ---
