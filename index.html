@@ -109,6 +109,7 @@
 
     canvas {
       width: 100% !important;
+      touch-action: none;
     }
 
     .btn-export {
@@ -404,15 +405,127 @@
       background-color: #e57373;
     }
 
-    @media (max-width: 700px) {
-      .main-layout { flex-direction: column; }
-      .zones-panel { width: 100%; }
+    /* Tablet */
+    @media (max-width: 768px) {
+      body { padding: 1.25rem 0.75rem; }
+
+      .main-layout {
+        flex-direction: column;
+      }
+
+      .zones-panel {
+        width: 100%;
+        flex-direction: row;
+      }
+
+      .zones-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .zone-card {
+        flex: 1 1 140px;
+        min-width: 140px;
+      }
+
+      .chart-wrapper {
+        padding: 0.75rem 0.5rem;
+      }
     }
 
+    /* Mobile */
     @media (max-width: 520px) {
-      h1 { font-size: 1.5rem; }
-      .inputs-row { gap: 0.5rem; }
-      .input-group input { width: 60px; font-size: 0.9rem; }
+      body { padding: 1rem 0.5rem; }
+
+      .container { gap: 1rem; }
+
+      h1 { font-size: 1.4rem; }
+
+      .indices-config-panel {
+        padding: 0.5rem 0.6rem;
+      }
+
+      .indices-config-list {
+        gap: 0.3rem;
+      }
+
+      .index-config-chip input[type="text"] {
+        width: 38px;
+        font-size: 0.7rem;
+      }
+
+      .inputs-row {
+        gap: 0.4rem;
+      }
+
+      .input-group label {
+        font-size: 0.75rem;
+      }
+
+      .input-group input {
+        width: 56px;
+        font-size: 0.85rem;
+        padding: 0.35rem 0.3rem;
+      }
+
+      .chart-area {
+        flex-direction: column-reverse;
+      }
+
+      .y-range-controls {
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+        padding: 0;
+      }
+
+      .range-input {
+        width: 56px !important;
+      }
+
+      .chart-wrapper {
+        padding: 0.5rem 0.25rem;
+      }
+
+      .export-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.6rem;
+      }
+
+      .btn-export {
+        width: 100%;
+        padding: 0.75rem 1rem;
+      }
+
+      .zones-panel {
+        width: 100%;
+        padding: 0.6rem;
+      }
+
+      .zone-card-fields input[type="number"] {
+        width: 48px;
+        font-size: 0.75rem;
+      }
+    }
+
+    /* Very small screens */
+    @media (max-width: 360px) {
+      h1 { font-size: 1.2rem; }
+
+      .input-group input {
+        width: 48px;
+        font-size: 0.8rem;
+      }
+
+      .range-input {
+        width: 48px !important;
+      }
+
+      .index-config-chip input[type="text"] {
+        width: 34px;
+        font-size: 0.65rem;
+      }
     }
   </style>
 </head>
